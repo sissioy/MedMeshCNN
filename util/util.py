@@ -134,7 +134,7 @@ def myindexrowselect(groups, mask_index, device):
 
     #Create new tensor
     groups = torch.sparse_coo_tensor(indices=allNewIndices,
-                                     values=torch.ones(allNewIndices.shape[1], dtype=torch.float),
+                                     values=torch.ones(allNewIndices.shape[1], dtype=torch.float).to(sparseRow.device),
                                      size=(len(mask_index), groups.shape[1]))
 
     return groups
