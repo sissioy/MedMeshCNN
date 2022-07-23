@@ -16,11 +16,15 @@ def run_test(epoch=-1):
     for i, data in enumerate(dataset):
         #print(i)
         model.set_input(data)
-        ncorrect, nexamples, mean_iou, iou = model.test()
-        writer.update_counter(ncorrect, nexamples, mean_iou, iou)
+        # ncorrect, nexamples, mean_iou, iou = model.test()
+        ncorrect, nexamples = model.test()
+        writer.update_counter(ncorrect, nexamples)
+        # writer.update_counter(ncorrect, nexamples,mean_iou, iou)
+
     writer.print_acc(epoch, writer.acc)
     writer.print_iou(epoch, writer.mean_iou, writer.seg_iou)
-    return writer.acc, writer.mean_iou, writer.iou
+    # return writer.acc , writer.mean_iou, writer.iou
+    return writer.acc
 
 
 if __name__ == '__main__':

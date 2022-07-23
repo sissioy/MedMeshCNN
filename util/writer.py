@@ -80,7 +80,8 @@ class Writer:
 
     def plot_acc(self, acc, epoch):
         if self.display:
-            self.display.add_scalar('data/test_acc', acc[0], epoch)
+            # self.display.add_scalar('data/test_acc', acc[0], epoch)
+            self.display.add_scalar('data/test_acc', acc, epoch)
 
     def reset_counter(self, opt):
         """
@@ -91,11 +92,11 @@ class Writer:
         self.iou = torch.zeros([opt.nclasses])
         self.avg_iou = 0
 
-    def update_counter(self, ncorrect, nexamples, avg_iou, iou):
+    def update_counter(self, ncorrect, nexamples):#, avg_iou, iou):
         self.ncorrect += ncorrect
         self.nexamples += nexamples
-        self.iou = torch.stack([self.iou.to(self.device), iou.to(self.device)]).sum(dim=0)
-        self.avg_iou += avg_iou
+        # self.iou = torch.stack([self.iou.to(self.device), iou.to(self.device)]).sum(dim=0)
+        # self.avg_iou += avg_iou
 
     @property
     def acc(self):

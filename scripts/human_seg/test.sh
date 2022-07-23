@@ -13,4 +13,4 @@ python3 test.py \
 --resblocks 1 \
 --batch_size 12 \
 --export_folder meshes \
---gpu_ids -1 \
+--gpu_ids 0 \

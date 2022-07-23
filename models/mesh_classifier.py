@@ -113,8 +113,8 @@ class ClassifierModel:
             label_class = self.labels
             self.export_segmentation(pred_class.cpu())
             correct = self.get_accuracy(pred_class, label_class)
-            mean_iou, iou =self.get_iou(pred_class, label_class)
-        return correct, len(label_class), mean_iou, iou
+            # mean_iou, iou =self.get_iou(pred_class, label_class) # TODO:
+        return correct, len(label_class) #, mean_iou, iou TODO:
 
     def get_accuracy(self, pred, labels):
         """computes accuracy for classification / segmentation """

@@ -3,6 +3,6 @@
 DATADIR='datasets' #location where data gets downloaded to
 
 # get data
-echo "downloading the data and putting it in: " $DATADIR
 mkdir -p $DATADIR && cd $DATADIR
-tar -xzvf human_seg.tar.gz && rm human_seg.tar.gz
+tar -xzvf shrec_16.tar.gz && rm shrec_16.tar.gz
+echo "downloaded the data and putting it in: " $DATADIR

@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from models.layers.attention_encoder import AttentionEncoder
 
 class MeshConv(nn.Module):
     """ Computes convolution between edges and 4 incident (1-ring) edge neighbors
@@ -12,6 +13,7 @@ class MeshConv(nn.Module):
     def __init__(self, in_channels, out_channels, k=5, bias=True):
         super(MeshConv, self).__init__()
         self.conv = nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=(1, k), bias=bias)
+        # self.att = AttentionEncoder(model_dim=in_channels,ffn_dim=out_channels)
         self.k = k
 
     def __call__(self, edge_f, mesh):
@@ -19,10 +21,13 @@ class MeshConv(nn.Module):
 
     def forward(self, x, mesh):
         x = x.squeeze(-1)
+        ####################### add attention ####################
+        # x = self.att(x)
         G = torch.cat([self.pad_gemm(i, x.shape[2], x.device) for i in mesh], 0)
         # build 'neighborhood image' and apply convolution
         G = self.create_GeMM(x, G)
         x = self.conv(G)
+        # x = self.att(G)
         return x
 
     def flatten_gemm_inds(self, Gi):
@@ -67,6 +72,7 @@ class MeshConv(nn.Module):
         x_3 = torch.abs(f[:, :, :, 1] - f[:, :, :, 3])
         x_4 = torch.abs(f[:, :, :, 2] - f[:, :, :, 4])
         f = torch.stack([f[:, :, :, 0], x_1, x_2, x_3, x_4], dim=3)
+        # f = torch.cat([f[:, :, :, 0], x_1, x_2, x_3, x_4], dim=0)
         return f
 
     def pad_gemm(self, m, xsz, device):
