@@ -1,3 +1,14 @@
+# MedMeshCNN_Attention --- Add Attention mechanism to MedMeshCNN model
+repository: [MedMeshCNN_Attention](https://github.com/sissioy/MedMeshCNN_Attention.git)
+
+I have done several attempts.
+1. 
+2. 
+3. 
+---
+
+
+
 <img src='docs/imgs/C60.png' align="right">
 <br><br><br>
 
